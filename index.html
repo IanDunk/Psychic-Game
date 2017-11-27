@@ -1,12 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Psychic Game</title>
 </head>
+
 <body>
-    
+
+    <div id="game">
+        <p>Press any key to start playing!</p>
+    </div>
+
+    <script type="text/javascript">
+
+
+        // Creating variables to hold the number of wins, losses, guesses left, and guesses so far. They start at 0.
+        var wins = 0;
+        var losses = 0;
+        var guessesLeft = 5;
+        var guessesSoFar = [];
+
+        // Choose random letter in alphabet
+        var computerGuess = String.fromCharCode(Math.floor(Math.random() * 26) + 64).toLowerCase();
+
+        // Resets everything aside from wins and losses
+        function reset() {
+            guessesLeft = 5;
+            guessesSoFar = [];
+            computerGuess = String.fromCharCode(Math.floor(Math.random() * 26) + 64).toLowerCase();
+        }
+
+
+        // This function is run whenever the user presses a key.
+        document.onkeyup = function (event) {
+
+            var userGuess = event.key;
+
+            if (guessesLeft > 0) {
+
+                if (userGuess === computerGuess) {
+                    wins++;
+                    reset();
+                } else {
+                    guessesSoFar.push(" " + userGuess);
+                    guessesLeft--;
+                }
+
+                // Creating a variable to hold our new HTML. Our HTML now keeps track of the user and computer guesses, and wins/losses/ties.
+                var html =
+                    "<p>You chose: " + userGuess + "</p>" +
+                    "<p>wins: " + wins + "</p>" +
+                    "<p>losses: " + losses + "</p>" +
+                    "<p>guesses left: " + guessesLeft + "</p>" +
+                    "<p>guesses so far: " + guessesSoFar + "</p>";
+
+                // Set the inner HTML contents of the #game div to our html string
+                document.querySelector("#game").innerHTML = html;
+            } else {
+                losses++;
+                reset();
+            }
+        };
+    </script>
+
 </body>
+
 </html>
