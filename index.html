@@ -21,14 +21,14 @@
         var guessesLeft = 5;
         var guessesSoFar = [];
 
-        // Choose random letter in alphabet
-        var computerGuess = String.fromCharCode(Math.floor(Math.random() * 26) + 64).toLowerCase();
+        // Choose random letter in alphabet using char codes 64 - 90, A - Z
+        var computerKey = String.fromCharCode(Math.floor(Math.random() * 26) + 65).toLowerCase();
 
         // Resets everything aside from wins and losses
         function reset() {
             guessesLeft = 5;
             guessesSoFar = [];
-            computerGuess = String.fromCharCode(Math.floor(Math.random() * 26) + 64).toLowerCase();
+            computerKey = String.fromCharCode(Math.floor(Math.random() * 26) + 65).toLowerCase();
         }
 
 
@@ -39,7 +39,7 @@
 
             if (guessesLeft > 0) {
 
-                if (userGuess === computerGuess) {
+                if (userGuess === computerKey) {
                     wins++;
                     reset();
                 } else {
@@ -47,20 +47,22 @@
                     guessesLeft--;
                 }
 
-                // Creating a variable to hold our new HTML. Our HTML now keeps track of the user and computer guesses, and wins/losses/ties.
-                var html =
-                    "<p>You chose: " + userGuess + "</p>" +
-                    "<p>wins: " + wins + "</p>" +
-                    "<p>losses: " + losses + "</p>" +
-                    "<p>guesses left: " + guessesLeft + "</p>" +
-                    "<p>guesses so far: " + guessesSoFar + "</p>";
-
-                // Set the inner HTML contents of the #game div to our html string
-                document.querySelector("#game").innerHTML = html;
             } else {
+                alert("Answer was " + computerKey);
                 losses++;
                 reset();
             }
+
+            // Creating a variable to hold our new HTML. Our HTML now keeps track of the user and computer guesses, and wins/losses/ties.
+            var html =
+                "<p>You chose: " + userGuess + "</p>" +
+                "<p>wins: " + wins + "</p>" +
+                "<p>losses: " + losses + "</p>" +
+                "<p>guesses left: " + guessesLeft + "</p>" +
+                "<p>guesses so far: " + guessesSoFar + "</p>";
+
+            // Set the inner HTML contents of the #game div to our html string
+            document.querySelector("#game").innerHTML = html;
         };
     </script>
 
